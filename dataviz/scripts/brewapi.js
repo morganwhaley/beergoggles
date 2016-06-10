@@ -2,7 +2,7 @@
 
 var BrewAPI = function() {};
 
-var KEY = '6f082a3b561effcd62762f7a86bfb333';
+var KEY = '600b7b4f3fed5a4db8fb96a8b599630e';
 var API = 'http://api.brewerydb.com/v2/';
 
 BrewAPI.prototype.init = function() {
@@ -34,13 +34,12 @@ BrewAPI.prototype.getBeers = function(encodedSearchParam) {
   })
   .done(function(results) {
     var returnBeer = results.data[0];
-    console.log(returnBeer);
-    // if (results.data.length > 1) {
-    //   plotResults(returnBeer, results.data);
-    // }
-    // else {
+    if (results.data.length > 1) {
+      plotResults(returnBeer, results.data);
+    }
+    else {
       context.getRelatedBeers(returnBeer);
-    // }
+    }
   })
   .error(function(error) {
     console.log(error);
@@ -49,18 +48,21 @@ BrewAPI.prototype.getBeers = function(encodedSearchParam) {
 
 BrewAPI.prototype.getRelatedBeers = function(returnBeer) {
   console.log(returnBeer);
+  var abvRangeLow = parseInt(returnBeer.abv) - 1;
+  var abvRangeHigh = parseInt(returnBeer.abv) + 1;
+  var ibuRangeLow = parseInt(returnBeer.ibu) - 10;
+  var ibuRangeHigh = parseInt(returnBeer.ibu) + 10;
   var context = this;
-  // $.ajax({
-  //   method: 'get',
-  //   url: API + 'beer/' + returnBeer + '/variations/?key=' + KEY
-  // })
-  // .done(function(results) {
-  //   var returnBeer = results.data[0];
-  //   plotResults(returnBeer, results.data);
-  // })
-  // .error(function(error) {
-  //   console.log(error);
-  // });
+  $.ajax({
+    method: 'get',
+    url: API + 'beers/?key=' + KEY + '&abv=' + abvRangeLow + ',' + abvRangeHigh + '&ibu=' + ibuRangeLow + ',' + ibuRangeHigh
+  })
+  .done(function(results) {
+    plotResults(returnBeer, results.data);
+  })
+  .error(function(error) {
+    console.log(error);
+  });
 }
 
 var tooltip;
