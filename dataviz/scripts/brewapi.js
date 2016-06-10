@@ -4,8 +4,8 @@ var BrewAPI = function() {};
 
 
 // var KEY = '600b7b4f3fed5a4db8fb96a8b599630e'; // SEAN
-var KEY = '3e9697256a3560bcd2bd05d03483ce99'; // PATRICK
-// var KEY = '600b7b4f3fed5a4db8fb96a8b599630e'; // Morgan
+// var KEY = '3e9697256a3560bcd2bd05d03483ce99'; // PATRICK
+var KEY = '600b7b4f3fed5a4db8fb96a8b599630e'; // Morgan
 var API = 'http://api.brewerydb.com/v2/';
 
 
@@ -46,9 +46,6 @@ BrewAPI.prototype.getBeers = function(encodedSearchParam) {
     else {
       context.getRelatedBeers(returnBeer);
     }
-  })
-  .error(function(error) {
-    console.log(error);
   });
 }
 
@@ -64,9 +61,6 @@ BrewAPI.prototype.getRelatedBeers = function(returnBeer) {
   })
   .done(function(results) {
     plotResults(returnBeer, results.data);
-  })
-  .error(function(error) {
-    console.log(error);
   });
 }
 
