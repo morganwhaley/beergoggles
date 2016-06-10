@@ -59,7 +59,7 @@ function plotResults(selectedbeer, resultdata) {
             .range([ height, 0 ]);
 
   // the chart object, includes all margins
-  var chart = d3.select('body')
+  var chart = d3.select('#chart')
     .append('svg:svg')
     .attr('width', width)
     .attr('height', height)
@@ -68,7 +68,7 @@ function plotResults(selectedbeer, resultdata) {
   var main = chart.append('g')
     .attr('width', width)
     .attr('height', height)
-    .attr('class', 'main'); 
+    .attr('class', 'main');
 
   //add background radial
   var defs = chart.append('defs');
@@ -102,7 +102,7 @@ function plotResults(selectedbeer, resultdata) {
     .call(yAxis);
   */
     // draw the graph object
-  var g = main.append("svg:g"); 
+  var g = main.append("svg:g");
 
   g.selectAll("scatter-dots")
     .data(resultdata)  // using the values in the ydata array
