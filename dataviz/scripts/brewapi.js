@@ -1,4 +1,3 @@
-"use strict";
 
 var BrewAPI = function() {};
 
@@ -38,15 +37,31 @@ BrewAPI.prototype.getBeers = function(encodedSearchParam) {
     url: API + 'beers/?key=' + KEY + '&name=' + encodedSearchParam + '&withBreweries=Y'
   })
   .done(function(results) {
-    $('.empty_state_wrapper').hide();
-    var returnBeer = results.data[0];
-    if (results.data.length > 1) {
-      plotResults(returnBeer, results.data);
+    if (results.data) {
+      context.handleResults(results);
     }
     else {
-      context.getRelatedBeers(returnBeer);
+      context.handleNoResults();
     }
   });
+}
+
+BrewAPI.prototype.handleResults = function(results) {
+  $('#beer-not-found').remove();
+  $('.empty_state_wrapper').hide();
+  var returnBeer = results.data[0];
+  if (results.data.length > 1) {
+    plotResults(returnBeer, results.data);
+  }
+  else {
+    this.getRelatedBeers(returnBeer);
+  }
+}
+
+BrewAPI.prototype.handleNoResults = function() {
+  $('#beer-not-found').remove();
+  $('.chart').remove();
+  $('.empty_state_wrapper').show().append('<h2 id="beer-not-found"><span>Sorry that beer is not in the database. Try again!<span></h2>');
 }
 
 BrewAPI.prototype.getRelatedBeers = function(returnBeer) {
