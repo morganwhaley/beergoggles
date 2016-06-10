@@ -5,8 +5,7 @@ var BrewAPI = function() {};
 
 // var KEY = '600b7b4f3fed5a4db8fb96a8b599630e'; // SEAN
 var KEY = '3e9697256a3560bcd2bd05d03483ce99'; // PATRICK
-
-// var KEY = '600b7b4f3fed5a4db8fb96a8b599630e';
+// var KEY = '600b7b4f3fed5a4db8fb96a8b599630e'; // Morgan
 var API = 'http://api.brewerydb.com/v2/';
 
 
@@ -20,7 +19,8 @@ BrewAPI.prototype.setElementCache = function() {}
 BrewAPI.prototype.bindEvents = function() {
   var context = this;
   $('#findBeer').click(function() {
-    console.log('we are trying')
+    event.preventDefault();
+    event.stopPropagation();
     context.getSearchCriteria();
   });
 }
@@ -52,7 +52,6 @@ BrewAPI.prototype.getBeers = function(encodedSearchParam) {
 }
 
 BrewAPI.prototype.getRelatedBeers = function(returnBeer) {
-  console.log(returnBeer);
   var abvRangeLow = parseInt(returnBeer.abv) - 1;
   var abvRangeHigh = parseInt(returnBeer.abv) + 1;
   var ibuRangeLow = parseInt(returnBeer.ibu) - 10;
@@ -70,12 +69,17 @@ BrewAPI.prototype.getRelatedBeers = function(returnBeer) {
   });
 }
 
+
+var searchSimilar = function(tooltipObject) {
+  var searchString = tooltipObject.name;
+  var encodedTooltipBeer = encodeURIComponent(searchString);
+  BrewAPI.prototype.getBeers(encodedTooltipBeer);
+}
+
 var tooltip;
 var tooltipObject;
 
 function plotResults(selectedbeer, resultdata) {
-  console.log(selectedbeer);
-  console.log(resultdata);
 
   //find the range or ibu and abv values in the data set
   var xrange = [d3.min(resultdata, function(d){return d.abv}), d3.max(resultdata, function(d){return d.abv})];
@@ -110,7 +114,7 @@ function plotResults(selectedbeer, resultdata) {
     .attr('height', height)
     .attr('class', 'chart');
 
-    //tooltip
+  //tooltip
   tooltip = d3.tip()
   .attr('class', 'd3-tip')
   .offset([-10, 0])
@@ -138,6 +142,7 @@ function plotResults(selectedbeer, resultdata) {
     .attr("cx", width/2)
     .attr("cy", height/2)
     .attr("r", width/2);
+    
 
   /*
     // draw the x axis
