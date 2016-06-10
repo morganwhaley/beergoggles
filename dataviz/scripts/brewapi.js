@@ -34,6 +34,7 @@ var tooltipObject;
 
 function searchSimilar(beer){
   //todo, fill in the functionality when searching for similar beers from tooltip
+
   console.log(beer);
   //call plotResults with beer object and resultdata of similarbeer
 }
@@ -70,6 +71,7 @@ function plotResults(selectedbeer, resultdata) {
 
 
   // the chart object, includes all margins
+  d3.select('.chart').remove();
   var chart = d3.select('#chart')
     .append('svg:svg')
     .attr('width', width)
