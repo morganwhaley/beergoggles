@@ -92,6 +92,9 @@ function plotResults(selectedbeer, resultdata) {
   var centerabv = parseFloat(selectedbeer.abv);
   var centeribu = parseFloat(selectedbeer.ibu);
 
+  var xstretch = 1.1*Math.max(centerabv-xrange[0], xrange[1]-centerabv);
+  var ystretch = 1.1*Math.max(centeribu-yrange[0], yrange[1]-centeribu);
+
   var width = 1400;
   var height = 806;
 
@@ -99,11 +102,11 @@ function plotResults(selectedbeer, resultdata) {
     // x and y scales, I've used linear here but there are other options
   // the scales translate data values to pixel values for you
   var x = d3.scale.linear()
-            .domain([centerabv-xmid, centerabv+xmid])  // the range of the values to plot
+            .domain([centerabv-xstretch, centerabv+xstretch])  // the range of the values to plot
             .range([ 0, width ]);        // the pixel range of the x-axis
 
   var y = d3.scale.linear()
-            .domain([centeribu-ymid, centeribu+ymid])
+            .domain([centeribu-ystretch, centeribu+ystretch])
             .range([ height, 0 ]);
 
   // the chart object, includes all margins
