@@ -66,10 +66,13 @@ header {
 input#search-beer {
   font-family:'montserratultra_light';
   border: none;
+  border-bottom: 1px solid rgba(255,255,255,.3);
   font-size: 56px;
   height: 60px;
   color: #fff;
   background-color: transparent;
+  padding-bottom: 10px;
+  text-align: center;
 }
 /* PLACEHOLDER TEXT */
 ::-webkit-input-placeholder{
@@ -153,11 +156,31 @@ CHART
 }
 
 .legend-label {
+  font-family: 'montserratultra_light';
 	font-size:36px;
 	fill:#FFFFFF;
 	opacity:0.5;
 	text-anchor:middle;
 }
+.legend-label-left {
+  text-anchor: start;
+}
+.legend-label-right {
+  text-anchor: end;
+}
+.legend-sub-label {
+  font-family: 'montserratultra_light';
+  font-size: 16px;
+  fill: rgba(255,255,255,.5);
+  text-anchor:middle;
+}
+.legend-sub-label-left {
+  text-anchor: start;
+}
+.legend-sub-label-right {
+  text-anchor: end;
+}
+
 
 /*
 ==========================
@@ -179,8 +202,9 @@ TOOL TIP
 */
 .d3-tip {
   width: 340px;
-  height: 160px;
-  padding: 20px;
+  height: 140px;
+  padding: 30px 20px;
+  position: relative;
 	background-color: #3c3c3c;
 	color: #FFFFFF;
 	font-family: sans-serif;
@@ -188,4 +212,98 @@ TOOL TIP
 	backdrop-filter: blur(5.6px);
 	background-color: rgba(255, 255, 255, 0.1);
 	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+}
+.d3-tip h3 {
+  font-size: 24px;
+  margin-bottom: 5px;
+}
+.d3-tip .tip_content_wrapper {
+  clear: both;
+}
+.d3-tip .col {
+  float: left;
+}
+.d3-tip .col_left {
+  width: 25%;
+  margin-right: 10px;
+}
+.d3-tip .col_right {
+  width: 65%;
+}
+/* BEER INFO */
+.label_beer_type {
+  font-size: 12px;
+  margin-bottom: 5px;
+}
+.label_beer_attributes{
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+.label_beer_attributes span {
+  font-size: 12px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.5);
+}
+.label_beer_attributes span:first-child {
+  margin-right: 10px;
+}
+/* SIMILAR BUTTON */
+.button_similar {
+}
+.button_similar a{
+  border: 0px solid #000000;
+  text-decoration: none;
+  color: #eec02b;
+  font-size: 18px;
+  position: relative;
+}
+.button_similar a:hover {
+  text-decoration: underline;
+}
+.button_similar a:after {
+  content: "";
+  height: 30px;
+  width: 30px;
+  display:block;
+  background-image: url(../img/icon-detail-search.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: rgba(0,0,0,0.2);
+  border-radius: 15px 15px 15px 15px;
+  -moz-border-radius: 15px 15px 15px 15px;
+  -webkit-border-radius: 15px 15px 15px 15px;
+  position: absolute;
+  top: -5px;
+  right: -40px;
+}
+/* CLOSE BUTTON */
+.button_close {
+  position:absolute;
+  font-weight: normal;
+  font-family: sans-serif;
+  top:0px;
+  right: 10px;
+  color: #000;
+  font-size: 32px;
+  text-decoration: none;
+  display: inline-block;
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+.button_close:hover {
+  color: rgba(255,255,255,1);
+}
+/* BEER AVATAR */
+.beer_avatar,
+.beer_avatar_medium {
+  margin: 0 auto;
+  width: 32px;
+  height: 70px;
+}
+.beer_avatar_medium {
+  width: 70px;
+  height: 70px;
 }

@@ -4,7 +4,8 @@ var fatTire = '{"id":"tuqTtX","name":"Fat Tire","nameDisplay":"Fat Tire","abv":"
 
 var BrewAPI = function() {};
 
-var KEY = '600b7b4f3fed5a4db8fb96a8b599630e';
+// var KEY = '600b7b4f3fed5a4db8fb96a8b599630e'; // SEAN
+var KEY = '3e9697256a3560bcd2bd05d03483ce99'; // PATRICK
 
 BrewAPI.prototype.init = function() {
   this.setElementCache();
@@ -18,7 +19,7 @@ BrewAPI.prototype.bindEvents = function() {}
 BrewAPI.prototype.getBeers = function() {
   $.ajax({
     method: 'get',
-    url: 'http://api.brewerydb.com/v2/beers/?key=6f082a3b561effcd62762f7a86bfb333&ibu=17,20&abv=4,6&styleId=32'
+    url: 'http://api.brewerydb.com/v2/beers/?key=3e9697256a3560bcd2bd05d03483ce99&ibu=17,20&abv=4,6&styleId=32'
   })
   .done(function(results){
     //console.log('Hello results!', results);
@@ -81,11 +82,11 @@ function plotResults(selectedbeer, resultdata) {
   .offset([-10, 0])
   .html(function(d) {
     tooltipObject = d;
-    var img = "<img src='beer.png' align='left' style='margin-right:20px' width='32' height='70'/>";
+    var img = "<img src='beer.png' class='beer_avatar'/>";
     if (d.labels != null && d.labels.medium != null) {
-      img = "<img src='"+d.labels.medium+"' align='left' style='margin-right:20px' width='70' height='70'/>";
+      img = "<img src='"+d.labels.medium+"' class='beer_avatar_medium'/>";
     }
-    return "<a style='position:relative;float:right' href='#' onclick='tooltip.hide();return false;'>X</a><p style='padding:20px'>"+img+"<span><strong>"+d.name+"</strong><br/>"+d.style.shortName+"<br/><br/><strong>"+d.ibu+"</strong> IBU <strong>"+d.abv+"</strong> ABV</span><br/><br/><a href='#' onclick='searchSimilar(tooltipObject);tooltip.hide();return false;'>Find Similar</a></span></p>";
+    return "<a class='button_close' href='#' onclick='tooltip.hide();return false;'>&#43;</a><div class='tip_content_wrapper'><div class='col col_left'>"+img+"</div><div class='col col_right'><h3>"+d.name+"</h3><p class='label_beer_type'>"+d.style.shortName+"</p><p class='label_beer_attributes'>"+d.ibu+" <span>IBU</span> "+d.abv+"<span>ABV</span></p><p class='button_similar'><p class='button_similar'><a href='#' onclick='searchSimilar(tooltipObject);tooltip.hide();return false;'>Find Similar</a></p></div>";
   })
   chart.call(tooltip);
   var main = chart.append('g')
@@ -160,20 +161,40 @@ function plotResults(selectedbeer, resultdata) {
     .attr("y", 70)
     .text("More Bitter");
   main.append("text")
-    .attr("class", "legend-label")
+    .attr("class", "legend-sub-label ")
     .attr("x", (width/2))
-    .attr("y", height-20)
-    .text("Less Bitter");
+    .attr("y", 100)
+    .text("High IBU");
   main.append("text")
     .attr("class", "legend-label")
+    .attr("x", (width/2))
+    .attr("y", height-50)
+    .text("Less Bitter");
+  main.append("text")
+    .attr("class", "legend-sub-label")
+    .attr("x", (width/2))
+    .attr("y", height-20)
+    .text("Less IBU");
+  main.append("text")
+    .attr("class", "legend-label legend-label-left")
     .attr("x", 90)
     .attr("y", height/2)
     .text("Light");
   main.append("text")
-    .attr("class", "legend-label")
+    .attr("class", "legend-sub-label legend-sub-label-left")
+    .attr("x", 90)
+    .attr("y", (height/2)+30)
+    .text("Low ABV");
+  main.append("text")
+    .attr("class", "legend-label legend-label-right")
     .attr("x", width-100)
     .attr("y", height/2)
     .text("Strong");
+  main.append("text")
+    .attr("class", "legend-sub-label legend-sub-label-right")
+    .attr("x", width-100)
+    .attr("y", (height/2)+30)
+    .text("High ABV");
 
   //add information about selected beer
   main.append("text")
@@ -196,14 +217,22 @@ function plotResults(selectedbeer, resultdata) {
     .attr("x", (width/2)-110)
     .attr("y", (height/2)+40)
     .text("ABV");
-
   main.append("image")
     .attr("xlink:href", "beer.png")
     .attr("x", (width/2)-51)
     .attr("y", (height/2)-110)
     .attr("width", 102)
     .attr("height", 210);
-
+  main.append("text")
+    .attr("class", "chart-text-label")
+    .attr("x", (width/2)+80)
+    .attr("y", (height/2)-20)
+    .text("Style");
+  main.append("text")
+    .attr("class", "chart-text-label")
+    .attr("x", (width/2)+80)
+    .attr("y", (height/2)+40)
+    .text("Brewery");
 }
 
 $(document).ready(function() {

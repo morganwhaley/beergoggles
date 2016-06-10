@@ -3,7 +3,8 @@ var express = require('express');
 var request = require('request');
 var app = express();
 var API_URL = 'https://api.brewerydb.com/v2/';
-var API_KEY = '600b7b4f3fed5a4db8fb96a8b599630e';
+// var API_KEY = '600b7b4f3fed5a4db8fb96a8b599630e'; // SEAN
+var API_KEY = '3e9697256a3560bcd2bd05d03483ce99'; // PATRICK
 
 // index route
 app.get('/', function(req,res) {
@@ -12,8 +13,8 @@ app.get('/', function(req,res) {
 
 // Due to CORS issues we have to use a proxy to overcome in Express or build out a back end.
 // This. This is why we can't have nice things.
-app.get('/api', function(req, res){ 
-  request(API_URL + '?key=' + API_KEY, function (error, response, body) { 
+app.get('/api', function(req, res){
+  request(API_URL + '?key=' + API_KEY, function (error, response, body) {
     if (!error && response.statusCode === 200) {
       res.send(body);
     }
