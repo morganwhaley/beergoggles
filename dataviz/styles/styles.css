@@ -172,10 +172,20 @@ footer {
   padding-top: 18px;
   text-align: center;
 }
-
+/*
+==========================
+TOOL TIP
+==========================
+*/
 .d3-tip {
+  width: 340px;
+  height: 160px;
+  padding: 20px;
 	background-color: #3c3c3c;
 	color: #FFFFFF;
 	font-family: sans-serif;
-
+  -webkit-backdrop-filter: blur(5.6px);
+	backdrop-filter: blur(5.6px);
+	background-color: rgba(255, 255, 255, 0.1);
+	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
 }
