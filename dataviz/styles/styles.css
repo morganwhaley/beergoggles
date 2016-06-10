@@ -18,7 +18,12 @@
 .outerdot {
 	fill: rgba(255, 255, 255, 0.2);
 }
+.outerdot:hover {
+ 	fill: #eec02b;
+ 	opacity:0.6;
+}
 .innerdot {
+	pointer-events : none;
 	fill: #eec02b;
 }
 
@@ -42,4 +47,10 @@
 	fill:#FFFFFF;
 	opacity:0.5;
 	text-anchor:middle;
+}
+
+.d3-tip {
+	background-color: #3c3c3c;
+	color: #FFFFFF;
+	font-family: sans-serif;
 }
