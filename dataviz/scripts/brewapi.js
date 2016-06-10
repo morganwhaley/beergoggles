@@ -80,6 +80,7 @@ function plotResults(selectedbeer, resultdata) {
     .attr("cx", width/2)
     .attr("cy", height/2)
     .attr("r", width/2);
+  
   /*
     // draw the x axis
   var xAxis = d3.svg.axis()
@@ -104,7 +105,15 @@ function plotResults(selectedbeer, resultdata) {
     // draw the graph object
   var g = main.append("svg:g");
 
-  g.selectAll("scatter-dots")
+  g.selectAll("rings")
+    .data([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18])  // using the values in the ydata array
+    .enter().append("svg:circle")  // create a new circle for each value
+        .attr("class", "ring")
+        .attr("cx", width/2 ) // translate x value
+        .attr("cy", height/2 ) // translate y value to a pixel
+        .attr("r", function (d) { return d*50 }); // radius of circle // radius of circle
+
+  g.selectAll("scatter-dots1")
     .data(resultdata)  // using the values in the ydata array
     .enter().append("svg:circle")  // create a new circle for each value
         .attr("class", "outerdot")
@@ -112,7 +121,7 @@ function plotResults(selectedbeer, resultdata) {
         .attr("cy", function (d) { return y(d.ibu); } ) // translate y value to a pixel
         .attr("r", 10);
 
-  g.selectAll("scatter-dots")
+  g.selectAll("scatter-dots2")
     .data(resultdata)  // using the values in the ydata array
     .enter().append("svg:circle")  // create a new circle for each value
         .attr("class", "innerdot")
@@ -120,27 +129,48 @@ function plotResults(selectedbeer, resultdata) {
         .attr("cy", function (d) { return y(d.ibu); } ) // translate y value to a pixel
         .attr("r", 4); // radius of circle // radius of circle
 
+  //add legend
+  main.append("text")
+    .attr("class", "legend-label")
+    .attr("x", (width/2))
+    .attr("y", 70)
+    .text("More Bitter");
+  main.append("text")
+    .attr("class", "legend-label")
+    .attr("x", (width/2))
+    .attr("y", height-20)
+    .text("Less Bitter");
+  main.append("text")
+    .attr("class", "legend-label")
+    .attr("x", 90)
+    .attr("y", height/2)
+    .text("Light");
+  main.append("text")
+    .attr("class", "legend-label")
+    .attr("x", width-100)
+    .attr("y", height/2)
+    .text("Strong");
 
   //add information about selected beer
   main.append("text")
     .attr("class", "chart-text-value")
     .attr("x", (width/2)-120)
-    .attr("y", (height/2)-30)
+    .attr("y", (height/2)-20)
     .text(selectedbeer.ibu);
   main.append("text")
     .attr("class", "chart-text-label")
     .attr("x", (width/2)-110)
-    .attr("y", (height/2)-30)
+    .attr("y", (height/2)-20)
     .text("IBU");
   main.append("text")
     .attr("class", "chart-text-value")
     .attr("x", (width/2)-120)
-    .attr("y", (height/2)+30)
+    .attr("y", (height/2)+40)
     .text(selectedbeer.abv);
   main.append("text")
     .attr("class", "chart-text-label")
     .attr("x", (width/2)-110)
-    .attr("y", (height/2)+30)
+    .attr("y", (height/2)+40)
     .text("ABV");
 
   main.append("image")
@@ -149,6 +179,7 @@ function plotResults(selectedbeer, resultdata) {
     .attr("y", (height/2)-110)
     .attr("width", 102)
     .attr("height", 210);
+    
 }
 
 $(document).ready(function() {
