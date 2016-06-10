@@ -159,12 +159,7 @@ SECTION
   width: 100%;
   min-height: 800px;
   text-align: center;
-  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#7d7d7d+0,000000+100 */
-  background: rgb(125,125,125); /* Old browsers */
-  background: -moz-radial-gradient(center, ellipse cover,  rgba(125,125,125,1) 0%, rgba(0,0,0,1) 100%); /* FF3.6-15 */
-  background: -webkit-radial-gradient(center, ellipse cover,  rgba(125,125,125,1) 0%,rgba(0,0,0,1) 100%); /* Chrome10-25,Safari5.1-6 */
-  background: radial-gradient(ellipse at center,  rgba(125,125,125,1) 0%,rgba(0,0,0,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7d7d7d', endColorstr='#000000',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+  background: #000;
 }
 
 /*
@@ -451,7 +446,6 @@ BUBBLES
 	width: 50px;
   position: absolute;
 }
-
 .b1 {
   -webkit-animation: animateBubble 10s linear infinite, lateralAnimation 2s ease-in-out infinite alternate;
 	-moz-animation: animateBubble 10s linear infinite, lateralAnimation 2s ease-in-out infinite alternate;
