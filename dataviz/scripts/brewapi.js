@@ -1,10 +1,9 @@
 "use strict";
 
-var fatTire = '{"id":"tuqTtX","name":"Fat Tire","nameDisplay":"Fat Tire","abv":"5.2","ibu":"18.5","glasswareId":5,"srmId":11,"availableId":1,"styleId":32,"isOrganic":"N","labels":{"icon":"https://s3.amazonaws.com/brewerydbapi/beer/tuqTtX/upload_L6CVSL-icon.png","medium":"https://s3.amazonaws.com/brewerydbapi/beer/tuqTtX/upload_L6CVSL-medium.png","large":"https://s3.amazonaws.com/brewerydbapi/beer/tuqTtX/upload_L6CVSL-large.png"}}';
-
 var BrewAPI = function() {};
 
-var KEY = '600b7b4f3fed5a4db8fb96a8b599630e';
+var KEY = '6f082a3b561effcd62762f7a86bfb333';
+var API = 'http://api.brewerydb.com/v2/';
 
 BrewAPI.prototype.init = function() {
   this.setElementCache();
@@ -13,31 +12,59 @@ BrewAPI.prototype.init = function() {
 
 BrewAPI.prototype.setElementCache = function() {}
 
-BrewAPI.prototype.bindEvents = function() {}
+BrewAPI.prototype.bindEvents = function() {
+  var context = this;
+  $('#findBeer').click(function() {
+    console.log('we are trying')
+    context.getSearchCriteria();
+  });
+}
 
-BrewAPI.prototype.getBeers = function() {
+BrewAPI.prototype.getSearchCriteria = function() {
+  var searchString = $('#search-beer').val();
+  var encodedSearchParam = encodeURIComponent(searchString);
+  this.getBeers(encodedSearchParam);
+}
+
+BrewAPI.prototype.getBeers = function(encodedSearchParam) {
+  var context = this;
   $.ajax({
     method: 'get',
-    url: 'http://api.brewerydb.com/v2/beers/?key=6f082a3b561effcd62762f7a86bfb333&ibu=17,20&abv=4,6&styleId=32'
+    url: API + 'beers/?key=' + KEY + '&name=' + encodedSearchParam
   })
-  .done(function(results){
-    //console.log('Hello results!', results);
-    plotResults(eval('('+fatTire+')'), results.data);
+  .done(function(results) {
+    var returnBeer = results.data[0];
+    console.log(returnBeer);
+    // if (results.data.length > 1) {
+    //   plotResults(returnBeer, results.data);
+    // }
+    // else {
+      context.getRelatedBeers(returnBeer);
+    // }
   })
-  .error(function(error){
+  .error(function(error) {
     console.log(error);
   });
 }
 
+BrewAPI.prototype.getRelatedBeers = function(returnBeer) {
+  console.log(returnBeer);
+  var context = this;
+  // $.ajax({
+  //   method: 'get',
+  //   url: API + 'beer/' + returnBeer + '/variations/?key=' + KEY
+  // })
+  // .done(function(results) {
+  //   var returnBeer = results.data[0];
+  //   plotResults(returnBeer, results.data);
+  // })
+  // .error(function(error) {
+  //   console.log(error);
+  // });
+}
+
 var tooltip;
 var tooltipObject;
-
-function searchSimilar(beer){
-  //todo, fill in the functionality when searching for similar beers from tooltip
-
-  console.log(beer);
-  //call plotResults with beer object and resultdata of similarbeer
-}
 
 function plotResults(selectedbeer, resultdata) {
   console.log(selectedbeer);
@@ -75,6 +102,7 @@ function plotResults(selectedbeer, resultdata) {
     .attr('width', width)
     .attr('height', height)
     .attr('class', 'chart');
+  
     //tooltip
   tooltip = d3.tip()
   .attr('class', 'd3-tip')
@@ -209,5 +237,5 @@ function plotResults(selectedbeer, resultdata) {
 $(document).ready(function() {
   var brewAPI = new BrewAPI();
   brewAPI.init();
-  brewAPI.getBeers();
+  //brewAPI.getBeers();
 });
