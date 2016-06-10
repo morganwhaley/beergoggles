@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="18px" height="18px" viewBox="0 0 18 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
+    <title>45FDC727-91F1-47D7-8D4F-03C23084F6E6</title>
+    <desc>Created with sketchtool.</desc>
+    <defs></defs>
+    <g id="Welcome" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Desktop-Details" transform="translate(-1051.000000, -54.000000)" fill="#FFFFFF">
+            <g id="search" transform="translate(1040.000000, 43.000000)">
+                <path d="M23.502,17.491 L22.708,17.491 L22.432,17.765 C23.407,18.902 24,20.376 24,21.991 C24,25.581 21.09,28.491 17.5,28.491 C13.91,28.491 11,25.581 11,21.991 C11,18.401 13.91,15.491 17.5,15.491 C19.115,15.491 20.588,16.083 21.725,17.057 L22.001,16.783 L22.001,15.991 L26.999,11 L28.49,12.491 L23.502,17.491 L23.502,17.491 Z M17.5,17.491 C15.014,17.491 13,19.505 13,21.991 C13,24.476 15.014,26.491 17.5,26.491 C19.985,26.491 22,24.476 22,21.991 C22,19.505 19.985,17.491 17.5,17.491 L17.5,17.491 Z" id="icon-search" transform="translate(19.745000, 19.745500) scale(1, -1) translate(-19.745000, -19.745500) "></path>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>
-      ZOMG Beer App
+      Tack Beer Goggles
     </title>
     <!-- Styles -->
     <link rel="stylesheet" href="../styles/reset.css" />
@@ -18,18 +18,38 @@
     <header>
       <div class="masthead">
         <div class="search_wrapper">
-          <input type="text" id="search-beer" name="search-beer" placeholder="Enter Beer Name"/>
-          <input type="submit" name="submit" id="findBeer" />
+          <div class="search_input_wrapper">
+            <form>
+              <input type="text" id="search-beer" name="search-beer" placeholder="Enter Beer Name" required/>
+              <button class="button_clear" type="reset" value="Reset"></button>
+              <input type="submit" name="submit" id="findBeer" />
+            </form>
+          </div>
         </div>
       </div>
     </header>
     <section id="chart">
       <!-- chart inserts here -->
+      <div class="empty_state_wrapper js_empty_state_wrapper">
+        <h2><span>Welcome to<span> Beer Goggles</h2>
+        <p>Enter the name or type of beer that you would like to start your search from.</p>
+        <div class="bubble b1"></div>
+        <div class="bubble b2"></div>
+        <div class="bubble b3"></div>
+        <div class="bubble b4"></div>
+        <div class="bubble b5"></div>
+        <div class="bubble b6"></div>
+        <div class="bubble b7"></div>
+        <div class="bubble b8"></div>
+        <div class="bubble b9"></div>
+      </div>
     </section>
     <footer>
       <p>&copy; Tack Mobile 2016 &#124; Powered by: brewerydb.com</p>
     </footer>
   </body>
   <!-- custom script -->
+  <script   src="https://code.jquery.com/jquery-3.0.0.min.js"   integrity="sha256-JmvOoLtYsmqlsWxa7mDSLMwa6dZ9rrIdtrrVYRnDRH0="   crossorigin="anonymous"></script>
   <script src="../scripts/brewapi.js"></script>
+  <script src="../scripts/global.js"></script>
 </html>
