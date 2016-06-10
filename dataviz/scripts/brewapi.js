@@ -5,8 +5,7 @@ var BrewAPI = function() {};
 
 // var KEY = '600b7b4f3fed5a4db8fb96a8b599630e'; // SEAN
 var KEY = '3e9697256a3560bcd2bd05d03483ce99'; // PATRICK
-
-// var KEY = '600b7b4f3fed5a4db8fb96a8b599630e';
+// var KEY = '600b7b4f3fed5a4db8fb96a8b599630e'; // Morgan
 var API = 'http://api.brewerydb.com/v2/';
 
 
@@ -20,7 +19,8 @@ BrewAPI.prototype.setElementCache = function() {}
 BrewAPI.prototype.bindEvents = function() {
   var context = this;
   $('#findBeer').click(function() {
-    console.log('we are trying')
+    event.preventDefault();
+    event.stopPropagation();
     context.getSearchCriteria();
   });
 }
@@ -35,7 +35,7 @@ BrewAPI.prototype.getBeers = function(encodedSearchParam) {
   var context = this;
   $.ajax({
     method: 'get',
-    url: API + 'beers/?key=' + KEY + '&name=' + encodedSearchParam
+    url: API + 'beers/?key=' + KEY + '&name=' + encodedSearchParam + '&withBreweries=Y'
   })
   .done(function(results) {
     var returnBeer = results.data[0];
@@ -52,7 +52,6 @@ BrewAPI.prototype.getBeers = function(encodedSearchParam) {
 }
 
 BrewAPI.prototype.getRelatedBeers = function(returnBeer) {
-  console.log(returnBeer);
   var abvRangeLow = parseInt(returnBeer.abv) - 1;
   var abvRangeHigh = parseInt(returnBeer.abv) + 1;
   var ibuRangeLow = parseInt(returnBeer.ibu) - 10;
@@ -60,7 +59,7 @@ BrewAPI.prototype.getRelatedBeers = function(returnBeer) {
   var context = this;
   $.ajax({
     method: 'get',
-    url: API + 'beers/?key=' + KEY + '&abv=' + abvRangeLow + ',' + abvRangeHigh + '&ibu=' + ibuRangeLow + ',' + ibuRangeHigh
+    url: API + 'beers/?key=' + KEY + '&abv=' + abvRangeLow + ',' + abvRangeHigh + '&ibu=' + ibuRangeLow + ',' + ibuRangeHigh + '&withBreweries=Y'
   })
   .done(function(results) {
     plotResults(returnBeer, results.data);
@@ -70,12 +69,17 @@ BrewAPI.prototype.getRelatedBeers = function(returnBeer) {
   });
 }
 
+
+var searchSimilar = function(tooltipObject) {
+  var searchString = tooltipObject.name;
+  var encodedTooltipBeer = encodeURIComponent(searchString);
+  BrewAPI.prototype.getBeers(encodedTooltipBeer);
+}
+
 var tooltip;
 var tooltipObject;
 
 function plotResults(selectedbeer, resultdata) {
-  console.log(selectedbeer);
-  console.log(resultdata);
 
   //find the range or ibu and abv values in the data set
   var xrange = [d3.min(resultdata, function(d){return d.abv}), d3.max(resultdata, function(d){return d.abv})];
@@ -88,6 +92,9 @@ function plotResults(selectedbeer, resultdata) {
   var centerabv = parseFloat(selectedbeer.abv);
   var centeribu = parseFloat(selectedbeer.ibu);
 
+  var xstretch = 1.1*Math.max(centerabv-xrange[0], xrange[1]-centerabv);
+  var ystretch = 1.1*Math.max(centeribu-yrange[0], yrange[1]-centeribu);
+
   var width = 1400;
   var height = 806;
 
@@ -95,11 +102,11 @@ function plotResults(selectedbeer, resultdata) {
     // x and y scales, I've used linear here but there are other options
   // the scales translate data values to pixel values for you
   var x = d3.scale.linear()
-            .domain([centerabv-xmid, centerabv+xmid])  // the range of the values to plot
+            .domain([centerabv-xstretch, centerabv+xstretch])  // the range of the values to plot
             .range([ 0, width ]);        // the pixel range of the x-axis
 
   var y = d3.scale.linear()
-            .domain([centeribu-ymid, centeribu+ymid])
+            .domain([centeribu-ystretch, centeribu+ystretch])
             .range([ height, 0 ]);
 
   // the chart object, includes all margins
@@ -110,7 +117,7 @@ function plotResults(selectedbeer, resultdata) {
     .attr('height', height)
     .attr('class', 'chart');
 
-    //tooltip
+  //tooltip
   tooltip = d3.tip()
   .attr('class', 'd3-tip')
   .offset([-10, 0])
@@ -138,6 +145,7 @@ function plotResults(selectedbeer, resultdata) {
     .attr("cx", width/2)
     .attr("cy", height/2)
     .attr("r", width/2);
+    
 
   /*
     // draw the x axis
@@ -229,7 +237,7 @@ function plotResults(selectedbeer, resultdata) {
     .attr("x", width-100)
     .attr("y", (height/2)+30)
     .text("High ABV");
-
+console.log(selectedbeer);
   //add information about selected beer
   main.append("text")
     .attr("class", "chart-text-value")
@@ -261,12 +269,12 @@ function plotResults(selectedbeer, resultdata) {
     .attr("class", "chart-text-label")
     .attr("x", (width/2)+80)
     .attr("y", (height/2)-20)
-    .text("Style");
+    .text("Style " + selectedbeer.style.name);
   main.append("text")
     .attr("class", "chart-text-label")
     .attr("x", (width/2)+80)
     .attr("y", (height/2)+40)
-    .text("Brewery");
+    .text("Brewery " + selectedbeer.breweries[0].name);
 }
 
 $(document).ready(function() {
