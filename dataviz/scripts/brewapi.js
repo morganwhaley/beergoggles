@@ -29,6 +29,15 @@ BrewAPI.prototype.getBeers = function() {
   });
 }
 
+var tooltip;
+var tooltipObject;
+
+function searchSimilar(beer){
+  //todo, fill in the functionality when searching for similar beers from tooltip
+  console.log(beer);
+  //call plotResults with beer object and resultdata of similarbeer
+}
+
 function plotResults(selectedbeer, resultdata) {
   console.log(selectedbeer);
   console.log(resultdata);
@@ -68,17 +77,18 @@ function plotResults(selectedbeer, resultdata) {
     .attr('class', 'chart');
 
     //tooltip
-  var tip = d3.tip()
+  tooltip = d3.tip()
   .attr('class', 'd3-tip')
   .offset([-10, 0])
   .html(function(d) {
+    tooltipObject = d;
     var img = "<img src='beer.png' align='left' style='margin-right:20px' width='32' height='70'/>";
     if (d.labels != null && d.labels.medium != null) {
       img = "<img src='"+d.labels.medium+"' align='left' style='margin-right:20px' width='70' height='70'/>";
     }
-    return "<p style='padding:0px 20px 0px 20px'>"+img+"<span><strong>"+d.name+"</strong><br/>"+d.style.shortName+"<br/><br/><strong>"+d.ibu+"</strong> IBU <strong>"+d.abv+"</strong> ABV</span></p>";
+    return "<a style='position:relative;float:right' href='#' onclick='tooltip.hide();return false;'>X</a><p style='padding:20px'>"+img+"<span><strong>"+d.name+"</strong><br/>"+d.style.shortName+"<br/><br/><strong>"+d.ibu+"</strong> IBU <strong>"+d.abv+"</strong> ABV</span><br/><br/><a href='#' onclick='searchSimilar(tooltipObject);tooltip.hide();return false;'>Find Similar</a></span></p>";
   })
-  chart.call(tip);
+  chart.call(tooltip);
 
   var main = chart.append('g')
     .attr('width', width)
@@ -114,7 +124,7 @@ function plotResults(selectedbeer, resultdata) {
         .attr("cx", function (d) { return x(d.abv); } ) // translate x value
         .attr("cy", function (d) { return y(d.ibu); } ) // translate y value to a pixel
         .attr("r", 10)
-        .on("mouseup", tip.show);
+        .on("mouseup", tooltip.show);
 
   g.selectAll("scatter-dots2")
     .data(resultdata)  // using the values in the resultdata
