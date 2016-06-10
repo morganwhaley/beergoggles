@@ -258,6 +258,17 @@ CHART
 .legend-sub-label-right {
   text-anchor: end;
 }
+.beer-name {
+  font-family: 'montserratultra_light';
+	font-size:36px;
+	fill:#FFFFFF;
+  opacity:1.0;
+  font-weight:bold;
+	text-anchor:middle;
+}
+.beer-style, .brewery-name {
+  opacity: 1.0;
+}
 
 /*
 ==========================

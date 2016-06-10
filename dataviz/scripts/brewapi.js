@@ -38,6 +38,7 @@ BrewAPI.prototype.getBeers = function(encodedSearchParam) {
     url: API + 'beers/?key=' + KEY + '&name=' + encodedSearchParam + '&withBreweries=Y'
   })
   .done(function(results) {
+    $('.empty_state_wrapper').hide();
     var returnBeer = results.data[0];
     if (results.data.length > 1) {
       plotResults(returnBeer, results.data);
@@ -237,7 +238,7 @@ function plotResults(selectedbeer, resultdata) {
     .attr("x", width-100)
     .attr("y", (height/2)+30)
     .text("High ABV");
-console.log(selectedbeer);
+    
   //add information about selected beer
   main.append("text")
     .attr("class", "chart-text-value")
@@ -266,15 +267,20 @@ console.log(selectedbeer);
     .attr("width", 102)
     .attr("height", 210);
   main.append("text")
-    .attr("class", "chart-text-label")
+    .attr("class", "chart-text-label beer-style")
     .attr("x", (width/2)+80)
     .attr("y", (height/2)-20)
-    .text("Style " + selectedbeer.style.name);
+    .text(selectedbeer.style.name);
   main.append("text")
-    .attr("class", "chart-text-label")
+    .attr("class", "chart-text-label brewery-name")
     .attr("x", (width/2)+80)
     .attr("y", (height/2)+40)
-    .text("Brewery " + selectedbeer.breweries[0].name);
+    .text(selectedbeer.breweries[0].name);
+  main.append("text")
+    .attr("class", "chart-text-label beer-name")
+    .attr("x", (width/2))
+    .attr("y", (height/2)-150)
+    .text(selectedbeer.name);
 }
 
 $(document).ready(function() {
