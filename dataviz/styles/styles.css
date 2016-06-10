@@ -131,7 +131,12 @@ CHART
 .outerdot {
 	fill: rgba(255, 255, 255, 0.2);
 }
+.outerdot:hover {
+ 	fill: #eec02b;
+ 	opacity:0.6;
+}
 .innerdot {
+	pointer-events : none;
 	fill: #eec02b;
 }
 
@@ -166,4 +171,11 @@ footer {
   height: 32px;
   padding-top: 18px;
   text-align: center;
+}
+
+.d3-tip {
+	background-color: #3c3c3c;
+	color: #FFFFFF;
+	font-family: sans-serif;
+
 }
