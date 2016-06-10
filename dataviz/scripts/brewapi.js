@@ -29,6 +29,16 @@ BrewAPI.prototype.getBeers = function() {
   });
 }
 
+var tooltip;
+var tooltipObject;
+
+function searchSimilar(beer){
+  //todo, fill in the functionality when searching for similar beers from tooltip
+
+  console.log(beer);
+  //call plotResults with beer object and resultdata of similarbeer
+}
+
 function plotResults(selectedbeer, resultdata) {
   console.log(selectedbeer);
   console.log(resultdata);
@@ -59,12 +69,25 @@ function plotResults(selectedbeer, resultdata) {
             .range([ height, 0 ]);
 
   // the chart object, includes all margins
+  d3.select('.chart').remove();
   var chart = d3.select('#chart')
     .append('svg:svg')
     .attr('width', width)
     .attr('height', height)
     .attr('class', 'chart');
-
+    //tooltip
+  tooltip = d3.tip()
+  .attr('class', 'd3-tip')
+  .offset([-10, 0])
+  .html(function(d) {
+    tooltipObject = d;
+    var img = "<img src='beer.png' align='left' style='margin-right:20px' width='32' height='70'/>";
+    if (d.labels != null && d.labels.medium != null) {
+      img = "<img src='"+d.labels.medium+"' align='left' style='margin-right:20px' width='70' height='70'/>";
+    }
+    return "<a style='position:relative;float:right' href='#' onclick='tooltip.hide();return false;'>X</a><p style='padding:20px'>"+img+"<span><strong>"+d.name+"</strong><br/>"+d.style.shortName+"<br/><br/><strong>"+d.ibu+"</strong> IBU <strong>"+d.abv+"</strong> ABV</span><br/><br/><a href='#' onclick='searchSimilar(tooltipObject);tooltip.hide();return false;'>Find Similar</a></span></p>";
+  })
+  chart.call(tooltip);
   var main = chart.append('g')
     .attr('width', width)
     .attr('height', height)
@@ -119,7 +142,8 @@ function plotResults(selectedbeer, resultdata) {
         .attr("class", "outerdot")
         .attr("cx", function (d) { return x(d.abv); } ) // translate x value
         .attr("cy", function (d) { return y(d.ibu); } ) // translate y value to a pixel
-        .attr("r", 10);
+        .attr("r", 10)
+        .on("mouseup", tooltip.show);
 
   g.selectAll("scatter-dots2")
     .data(resultdata)  // using the values in the ydata array
