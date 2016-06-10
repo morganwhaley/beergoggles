@@ -1,1 +1,30 @@
 /* Just throw the css radness here */
+.chart {
+	background-color: #070707;
+}
+.axis line, .axis path {
+    shape-rendering: crispEdges;
+    stroke: black;
+    fill: none;
+}
+
+.outerdot {
+	fill: rgba(255, 255, 255, 0.2);
+}
+.innerdot {
+	fill: #eec02b;
+}
+
+.chart-text-value {
+	font-family:sans-serif; 
+	font-size:36px; 
+	fill:#FFFFFF;
+	text-anchor:end;
+}
+
+.chart-text-label {
+	font-family:sans-serif;
+	font-size:20px;
+	fill:#FFFFFF;
+	opacity:0.5;
+}
