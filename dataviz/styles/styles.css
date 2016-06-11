@@ -209,6 +209,8 @@ CHART
 }
 .outerdot {
 	fill: rgba(255, 255, 255, 0.2);
+  transition: all .5s ease-in-out;
+  cursor: pointer;
 }
 .outerdot:hover {
  	fill: #eec02b;

@@ -140,7 +140,7 @@ function plotResults(selectedbeer, resultdata) {
     .attr("cx", width/2)
     .attr("cy", height/2)
     .attr("r", width/2);
-    
+
 
   /*
     // draw the x axis
@@ -181,6 +181,8 @@ function plotResults(selectedbeer, resultdata) {
         .attr("cx", function (d) { return x(d.abv); } ) // translate x value
         .attr("cy", function (d) { return y(d.ibu); } ) // translate y value to a pixel
         .attr("r", 10)
+        .attr("onmouseover","evt.target.setAttribute('r', '15');")
+        .attr("onmouseout","evt.target.setAttribute('r', '10');")
         .on("mouseup", tooltip.show);
 
   g.selectAll("scatter-dots2")
@@ -232,7 +234,7 @@ function plotResults(selectedbeer, resultdata) {
     .attr("x", width-100)
     .attr("y", (height/2)+30)
     .text("High ABV");
-    
+
   //add information about selected beer
   main.append("text")
     .attr("class", "chart-text-value")
