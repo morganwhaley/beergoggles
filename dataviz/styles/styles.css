@@ -187,6 +187,12 @@ EMPTY STATE
   max-width: 60%;
   margin: 0 auto;
 }
+.empty_state_wrapper h2#beer-not-found {
+  position: absolute;
+  top: 50px;
+  text-align: center;
+  width: 100%;
+}
 /*
 ==========================
 CHART
