@@ -1,3 +1,4 @@
+"use strict";
 
 var BrewAPI = function() {};
 
@@ -37,31 +38,15 @@ BrewAPI.prototype.getBeers = function(encodedSearchParam) {
     url: API + 'beers/?key=' + KEY + '&name=' + encodedSearchParam + '&withBreweries=Y'
   })
   .done(function(results) {
-    if (results.data) {
-      context.handleResults(results);
+    $('.empty_state_wrapper').hide();
+    var returnBeer = results.data[0];
+    if (results.data.length > 1) {
+      plotResults(returnBeer, results.data);
     }
     else {
-      context.handleNoResults();
+      context.getRelatedBeers(returnBeer);
     }
   });
-}
-
-BrewAPI.prototype.handleResults = function(results) {
-  $('#beer-not-found').remove();
-  $('.empty_state_wrapper').hide();
-  var returnBeer = results.data[0];
-  if (results.data.length > 1) {
-    plotResults(returnBeer, results.data);
-  }
-  else {
-    this.getRelatedBeers(returnBeer);
-  }
-}
-
-BrewAPI.prototype.handleNoResults = function() {
-  $('#beer-not-found').remove();
-  $('.chart').remove();
-  $('.empty_state_wrapper').show().append('<h2 id="beer-not-found"><span>Sorry that beer is not in the database. Try again!<span></h2>');
 }
 
 BrewAPI.prototype.getRelatedBeers = function(returnBeer) {
@@ -277,16 +262,21 @@ function plotResults(selectedbeer, resultdata) {
     .attr("y", (height/2)-110)
     .attr("width", 102)
     .attr("height", 210);
-  main.append("text")
-    .attr("class", "chart-text-label beer-style")
+  main.append("foreignObject")
     .attr("x", (width/2)+80)
-    .attr("y", (height/2)-20)
-    .text(selectedbeer.style.name);
-  main.append("text")
-    .attr("class", "chart-text-label brewery-name")
+    .attr("y", (height/2)-50)
+    .attr('width', 200)
+    .attr('height', 100)
+    .append("xhtml")
+    .html("<p class='beer-style'>"+(selectedbeer.style.name)+"</p>");
+    //.text(selectedbeer.style.name);
+  main.append("foreignObject")
     .attr("x", (width/2)+80)
-    .attr("y", (height/2)+40)
-    .text(selectedbeer.breweries[0].name);
+    .attr("y", (height/2)+10)
+    .attr('width', 200)
+    .attr('height', 100)
+    .append("xhtml")
+    .html("<p class='brewery-name'>"+(selectedbeer.breweries[0].name)+"</p>");
   main.append("text")
     .attr("class", "chart-text-label beer-name")
     .attr("x", (width/2))

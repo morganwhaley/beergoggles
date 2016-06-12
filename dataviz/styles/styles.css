@@ -226,16 +226,7 @@ CHART
 	pointer-events : none;
 	fill: #eec02b;
 }
-.chart-text-value {
-	font-size:36px;
-	fill:#FFFFFF;
-	text-anchor:end;
-}
-.chart-text-label {
-	font-size:20px;
-	fill:#FFFFFF;
-	opacity:0.5;
-}
+/* LEGEND LABELS */
 .legend-label {
   font-family: 'montserratultra_light';
 	font-size:36px;
@@ -261,16 +252,32 @@ CHART
 .legend-sub-label-right {
   text-anchor: end;
 }
-.beer-name {
-  font-family: 'montserratultra_light';
+/* SELECTED BEER LABELS */
+.chart-text-label {
+	font-size:20px;
+	fill:#FFFFFF;
+	opacity:0.5;
+}
+.chart-text-value {
 	font-size:36px;
 	fill:#FFFFFF;
-  opacity:1.0;
-  font-weight:bold;
-	text-anchor:middle;
+	text-anchor:end;
 }
-.beer-style, .brewery-name {
+.beer-name {
   opacity: 1.0;
+  text-anchor:middle;
+  color: #fff;
+  font-size: 36px;
+}
+.beer-style,
+.brewery-name {
+  opacity: 1.0;
+  font-family: 'montserratultra_light';
+	font-size:18px;
+	fill:#FFFFFF;
+	text-align: left;
+  width: 200px;
+  line-height: 22px;
 }
 
 /*
