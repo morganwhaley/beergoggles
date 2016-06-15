@@ -48,7 +48,6 @@ header {
 }
 .masthead {
   height: 140px;
-  max-height: 100%;
   width: 100%;
   background: rgb(249,125,17); /* Old browsers */
   background: -moz-linear-gradient(left,  rgba(249,125,17,1) 0%, rgba(240,197,27,1) 100%); /* FF3.6-15 */
