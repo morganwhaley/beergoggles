@@ -272,14 +272,14 @@ function plotResults(selectedbeer, resultdata) {
     //.text(selectedbeer.style.name);
   main.append("foreignObject")
     .attr("x", (width/2)+80)
-    .attr("y", (height/2)+10)
+    .attr("y", (height/2)+20)
     .attr('width', 200)
     .attr('height', 100)
     .append("xhtml")
     .html("<p class='brewery-name'>"+(selectedbeer.breweries[0].name)+"</p>");
   main.append("text")
     .attr("class", "chart-text-label beer-name")
-    .attr("x", (width/2))
+    .attr("x", width/2)
     .attr("y", (height/2)-150)
     .text(selectedbeer.name);
 }
